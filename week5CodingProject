@@ -1,0 +1,73 @@
+class MenuItem {
+    constructor(name, description, price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+}
+
+class Menu {
+    constructor() {
+        this.items = [];
+    }
+
+    createItem(name, description, price) {
+        const item = new MenuItem(name, description, price);
+        this.items.push(item);
+        console.log(`Item '${name}' added to the menu.`);
+    }
+
+    viewMenu() {
+        console.log("Menu:");
+        this.items.forEach((item, index) => {
+            console.log(`${index + 1}. ${item.name} - ${item.description} - $${item.price}`);
+        });
+    }
+
+    deleteItem(index) {
+        if (index >= 0 && index < this.items.length) {
+            const deletedItem = this.items.splice(index, 1)[0];
+            console.log(`Item '${deletedItem.name}' deleted from the menu.`);
+        } else {
+            console.log("Invalid index. Please select a valid item to delete.");
+        }
+    }
+}
+
+function main() {
+    const menu = new Menu();
+
+    while (true) {
+        console.log("\nMenu App");
+        console.log("1. Create Item");
+        console.log("2. View Menu");
+        console.log("3. Delete Item");
+        console.log("4. Exit");
+
+        const choice = prompt("Select an option: ");
+
+        switch (choice) {
+            case "1":
+                const name = prompt("Enter item name: ");
+                const description = prompt("Enter item description: ");
+                const price = parseFloat(prompt("Enter item price: "));
+                menu.createItem(name, description, price);
+                break;
+            case "2":
+                menu.viewMenu();
+                break;
+            case "3":
+                menu.viewMenu();
+                const index = parseInt(prompt("Enter the index of the item to delete: ")) - 1;
+                menu.deleteItem(index);
+                break;
+            case "4":
+                console.log("Exiting the menu app.");
+                return;
+            default:
+                console.log("Invalid choice. Please select a valid option.");
+        }
+    }
+}
+
+main();
